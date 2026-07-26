@@ -43,6 +43,10 @@ func main() {
 			commit)
 		os.Exit(0)
 	}
+	if err != nil && flags.WroteHelp(err) {
+		fmt.Fprintf(os.Stdout, "%v\n", err)
+		os.Exit(0)
+	}
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "%v\n", err)
 		os.Exit(3)
