@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.0.7](https://github.com/monitoring-forge/check-dns-multi/compare/v0.0.6...v0.0.7) - 2026-07-26
+
+- go: bump the dependencies group across 1 directory with 4 updates by @dependabot[bot] in https://github.com/monitoring-forge/check-dns-multi/pull/25
+- ci: bump the dependencies group with 3 updates by @dependabot[bot] in https://github.com/monitoring-forge/check-dns-multi/pull/26
+- repository transfer and refactor package tree by @kazeburo in https://github.com/monitoring-forge/check-dns-multi/pull/28
+
 ## [v0.0.6](https://github.com/kazeburo/check-dns-multi/compare/v0.0.5...v0.0.6) - 2026-07-10
 
 - ci: bump Songmu/tagpr from 1.18.1 to 1.18.2 in the dependencies group by @dependabot[bot] in https://github.com/kazeburo/check-dns-multi/pull/14
