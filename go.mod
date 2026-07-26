@@ -1,4 +1,4 @@
-module github.com/kazeburo/check-dns-multi
+module github.com/monitoring-forge/check-dns-multi
 
 go 1.25.0
 

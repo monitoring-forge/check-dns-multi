@@ -1,4 +1,4 @@
-package dnsmulti
+package main
 
 import (
 	"fmt"

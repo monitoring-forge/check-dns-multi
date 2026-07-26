@@ -1,9 +1,6 @@
 builds:
   - binary: check-dns-multi
     main: ./cmd/check-dns-multi
-    ldflags:
-      - -s -w
-      - -X main.Version=v{{.Version}}
     goos:
       - linux
     goarch:
@@ -16,5 +13,5 @@ archives:
     name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
 release:
   github:
-    owner: kazeburo
+    owner: monitoring-forge
     name: check-dns-multi
