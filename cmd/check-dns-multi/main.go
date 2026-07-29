@@ -13,6 +13,11 @@ import (
 var version string
 var commit string
 
+const UNKNOWN = 3
+const CRITICAL = 2
+const WARNING = 1
+const OK = 0
+
 type Opt struct {
 	Version   bool          `short:"v" long:"version" description:"Show version"`
 	Protocol  string        `long:"protocol" required:"true" default:"udp" choice:"tcp" choice:"udp"`
@@ -27,8 +32,13 @@ type Opt struct {
 
 func main() {
 	opt := &Opt{}
-	psr := flags.NewParser(opt, flags.HelpFlag|flags.PassDoubleDash)
+	psr := flags.NewParser(opt, flags.HelpFlag|flags.PrintErrors|flags.PassDoubleDash)
 	_, err := psr.Parse()
+	if flags.WroteHelp(err) {
+		os.Exit(OK)
+	} else if err != nil {
+		os.Exit(UNKNOWN)
+	}
 	if opt.Version {
 		if commit == "" {
 			commit = "dev"
@@ -41,16 +51,9 @@ func main() {
 			runtime.GOARCH,
 			runtime.Version(),
 			commit)
-		os.Exit(0)
+		os.Exit(OK)
 	}
-	if err != nil && flags.WroteHelp(err) {
-		fmt.Fprintf(os.Stdout, "%v\n", err)
-		os.Exit(0)
-	}
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%v\n", err)
-		os.Exit(3)
-	}
+
 	ckr := opt.Resolve()
 	ckr.Name = "DNS-Multi"
 	ckr.Exit()
