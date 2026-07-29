@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.0.8](https://github.com/monitoring-forge/check-dns-multi/compare/v0.0.7...v0.0.8) - 2026-07-29
+
+- pr-agent and flags refactor by @kazeburo in https://github.com/monitoring-forge/check-dns-multi/pull/29
+
 ## [v0.0.7](https://github.com/monitoring-forge/check-dns-multi/compare/v0.0.6...v0.0.7) - 2026-07-26
 
 - go: bump the dependencies group across 1 directory with 4 updates by @dependabot[bot] in https://github.com/monitoring-forge/check-dns-multi/pull/25
