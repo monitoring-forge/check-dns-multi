@@ -33,14 +33,9 @@ type Opt struct {
 }
 
 func main() {
-	opt := &Opt{}
-	psr := flags.NewParser(opt, flags.HelpFlag|flags.PrintErrors|flags.PassDoubleDash)
+	opt := Opt{}
+	psr := flags.NewParser(&opt, flags.HelpFlag|flags.PassDoubleDash)
 	_, err := psr.Parse()
-	if flags.WroteHelp(err) {
-		os.Exit(OK)
-	} else if err != nil {
-		os.Exit(UNKNOWN)
-	}
 	if opt.Version {
 		if commit == "" {
 			commit = "dev"
@@ -54,6 +49,12 @@ func main() {
 			runtime.Version(),
 			commit)
 		os.Exit(OK)
+	} else if flags.WroteHelp(err) {
+		fmt.Fprintf(os.Stdout, "%v\n", err)
+		os.Exit(OK)
+	} else if err != nil {
+		fmt.Fprintf(os.Stderr, "%v\n", err)
+		os.Exit(UNKNOWN)
 	}
 
 	ckr := opt.Resolve()
