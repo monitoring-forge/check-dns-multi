@@ -13,10 +13,12 @@ import (
 var version string
 var commit string
 
-const UNKNOWN = 3
-const CRITICAL = 2
-const WARNING = 1
-const OK = 0
+const (
+	OK = iota
+	WARNING
+	CRITICAL
+	UNKNOWN
+)
 
 type Opt struct {
 	Version   bool          `short:"v" long:"version" description:"Show version"`
