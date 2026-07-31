@@ -20,7 +20,7 @@ func (o *Opt) resolveOne(host string) (string, error) {
 	m.SetQuestion(o.Question, dns.StringToType[o.QueryType])
 	r, _, err := c.Exchange(m, address)
 	if err != nil {
-		return "", fmt.Errorf("[%s] failed to resolve: %v", address, err)
+		return "", fmt.Errorf("[%s] failed to resolve: %w", address, err)
 	}
 	if r.Rcode != dns.RcodeSuccess {
 		return "", fmt.Errorf("[%s] failed to resolve '%s': rcode:%s",
@@ -62,10 +62,7 @@ func (o *Opt) Resolve() *checkers.Checker {
 
 	var wg sync.WaitGroup
 	for _, host := range o.Hosts {
-		host := host
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
+		wg.Go(func() {
 			msg, err := o.resolveOne(host)
 			mu.Lock()
 			if err != nil {
@@ -75,8 +72,7 @@ func (o *Opt) Resolve() *checkers.Checker {
 				m = append(m, msg)
 			}
 			mu.Unlock()
-
-		}()
+		})
 	}
 	wg.Wait()
 
