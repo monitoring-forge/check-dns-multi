@@ -63,7 +63,6 @@ func (o *Opt) Resolve() *checkers.Checker {
 	var wg sync.WaitGroup
 	for _, host := range o.Hosts {
 		wg.Go(func() {
-			defer wg.Done()
 			msg, err := o.resolveOne(host)
 			mu.Lock()
 			if err != nil {
