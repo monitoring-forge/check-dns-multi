@@ -1,5 +1,14 @@
 # Changelog
 
+## [v0.0.10](https://github.com/monitoring-forge/check-dns-multi/compare/v0.0.9...v0.0.10) - 2026-08-19
+
+- add meke lint and fix by @kazeburo in https://github.com/monitoring-forge/check-dns-multi/pull/33
+- Sync files with `monitoring-forge/github-common` by @monitoring-forge-files-sync-action[bot] in https://github.com/monitoring-forge/check-dns-multi/pull/35
+- Sync files with `monitoring-forge/github-common` by @monitoring-forge-files-sync-action[bot] in https://github.com/monitoring-forge/check-dns-multi/pull/36
+- ci: bump the-pr-agent/pr-agent from 0.41.1 to 0.42.0 in the dependencies group across 1 directory by @dependabot[bot] in https://github.com/monitoring-forge/check-dns-multi/pull/37
+- refactor: update build flags and rename Resolve to Run method by @kazeburo in https://github.com/monitoring-forge/check-dns-multi/pull/38
+- docs: improve README with detailed installation and usage instructions by @kazeburo in https://github.com/monitoring-forge/check-dns-multi/pull/39
+
 ## [v0.0.9](https://github.com/monitoring-forge/check-dns-multi/compare/v0.0.8...v0.0.9) - 2026-07-29
 
 - refactor flags again by @kazeburo in https://github.com/monitoring-forge/check-dns-multi/pull/31
