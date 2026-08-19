@@ -1,10 +1,9 @@
 VERSION=0.1.0
-GITCOMMIT?=$(shell git describe --dirty --always)
-LDFLAGS=-ldflags "-w -s -X main.version=${VERSION} -X main.commit=${GITCOMMIT}"
+LDFLAGS=-ldflags "-w -s -X main.version=${VERSION}"
 
 all: check-dns-multi
 
-.PHONY: check-dns-multi
+.PHONY: check-dns-multi linux check lint
 
 check-dns-multi: cmd/check-dns-multi/*.go
 	go build $(LDFLAGS) -o check-dns-multi ./cmd/check-dns-multi/

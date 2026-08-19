@@ -55,7 +55,7 @@ func (o *Opt) resolveOne(host string) (string, error) {
 	return strings.Join(msg, "\n"), nil
 }
 
-func (o *Opt) Resolve() *checkers.Checker {
+func (o *Opt) Run(_ []string) *checkers.Checker {
 	var mu sync.Mutex
 	errCount := 0
 	m := make([]string, 0, len(o.Hosts))

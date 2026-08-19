@@ -36,7 +36,7 @@ func TestResolve(t *testing.T) {
 		Timeout:   timeout,
 		All:       false,
 	}
-	checker := opt.Resolve()
+	checker := opt.Run(nil)
 	assert.Equal(t, checker.Status, checkers.OK)
 	assert.Contains(t, checker.Message, "[8.8.8.8:53] ANSWER")
 	assert.Contains(t, checker.Message, "[dnstestdnstestdnstest:53] failed to resolve")
@@ -53,7 +53,7 @@ func TestResolveAny(t *testing.T) {
 		Timeout:   timeout,
 		All:       true,
 	}
-	checker := opt.Resolve()
+	checker := opt.Run(nil)
 	assert.Equal(t, checker.Status, checkers.CRITICAL)
 	assert.Contains(t, checker.Message, "[dnstestdnstestdnstest:53] failed to resolve")
 	assert.Contains(t, checker.Message, "[dnstest2dnstest2dnstest2:53] failed to resolve")
@@ -70,7 +70,7 @@ func TestResolveAll(t *testing.T) {
 		Timeout:   timeout,
 		All:       true,
 	}
-	checker := opt.Resolve()
+	checker := opt.Run(nil)
 	assert.Equal(t, checker.Status, checkers.CRITICAL)
 	assert.Contains(t, checker.Message, "[8.8.8.8:53] ANSWER")
 	assert.Contains(t, checker.Message, "[dnstestdnstestdnstest:53] failed to resolve")
