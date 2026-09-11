@@ -1,6 +1,6 @@
 module github.com/monitoring-forge/check-dns-multi
 
-go 1.25.0
+go 1.26.0
 
 require github.com/miekg/dns v1.1.73
 
@@ -12,5 +12,5 @@ require (
 	github.com/monitoring-forge/flagrun v0.0.8
 	github.com/stretchr/testify v1.12.1
 	golang.org/x/net v0.58.0 // indirect
-	golang.org/x/sys v0.47.0 // indirect
+	golang.org/x/sys v0.48.0 // indirect
 )
