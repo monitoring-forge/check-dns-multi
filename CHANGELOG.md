@@ -1,5 +1,16 @@
 # Changelog
 
+## [v0.0.11](https://github.com/monitoring-forge/check-dns-multi/compare/v0.0.10...v0.0.11) - 2026-10-09
+
+- Sync files with `monitoring-forge/github-common` by @monitoring-forge-files-sync-action[bot] in https://github.com/monitoring-forge/check-dns-multi/pull/40
+- go: bump github.com/monitoring-forge/flagrun from 0.0.7 to 0.0.8 in the dependencies group across 1 directory by @dependabot[bot] in https://github.com/monitoring-forge/check-dns-multi/pull/41
+- ci: bump Songmu/tagpr from 1.20.1 to 1.20.2 in the dependencies group across 1 directory by @dependabot[bot] in https://github.com/monitoring-forge/check-dns-multi/pull/45
+- ci: bump Songmu/tagpr from 1.20.2 to 1.20.3 in the dependencies group by @dependabot[bot] in https://github.com/monitoring-forge/check-dns-multi/pull/47
+- go: bump the dependencies group across 1 directory with 3 updates by @dependabot[bot] in https://github.com/monitoring-forge/check-dns-multi/pull/48
+- Sync files with `monitoring-forge/github-common` by @monitoring-forge-files-sync-action[bot] in https://github.com/monitoring-forge/check-dns-multi/pull/49
+- ci: bump Songmu/tagpr from 1.20.3 to 1.21.0 in the dependencies group by @dependabot[bot] in https://github.com/monitoring-forge/check-dns-multi/pull/50
+- Sync files with `monitoring-forge/github-common` by @monitoring-forge-files-sync-action[bot] in https://github.com/monitoring-forge/check-dns-multi/pull/51
+
 ## [v0.0.10](https://github.com/monitoring-forge/check-dns-multi/compare/v0.0.9...v0.0.10) - 2026-08-19
 
 - add meke lint and fix by @kazeburo in https://github.com/monitoring-forge/check-dns-multi/pull/33
