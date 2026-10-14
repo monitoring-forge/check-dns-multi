@@ -34,6 +34,7 @@ check-dns-multi [OPTIONS]
 | `-Q`, `--question=NAME` | `example.com.` | 問い合わせるホスト名です。必要に応じて末尾に `.` を付けます。 |
 | `-q`, `--querytype=A\|AAAA` | `A` | 問い合わせるレコード種別です。`A` または `AAAA` を指定できます。 |
 | `-E`, `--expect=STRING` | なし | `A` または `AAAA` の回答値に含まれることを期待する文字列です。 |
+| `-R`, `--expect-regexp=REGEXP` | なし | DNS応答のAレコードに一致することを確認する正規表現。`--expect` とは同時に指定できません。 |
 | `--timeout=DURATION` | `5s` | 1台のDNSサーバーへのタイムアウトです。例: `500ms`, `10s`。 |
 | `--all` | 無効 | すべてのDNSサーバーで名前解決が成功した場合だけOKにします。 |
 | `-h`, `--help` | - | ヘルプを表示します。 |
