@@ -1,6 +1,7 @@
 package main
 
 import (
+	"regexp"
 	"testing"
 	"time"
 
@@ -74,4 +75,62 @@ func TestResolveAll(t *testing.T) {
 	assert.Equal(t, checker.Status, checkers.CRITICAL)
 	assert.Contains(t, checker.Message, "[8.8.8.8:53] ANSWER")
 	assert.Contains(t, checker.Message, "[dnstestdnstestdnstest:53] failed to resolve")
+}
+
+func TestResolveOnceExpect(t *testing.T) {
+	genOpt := func(expect string, expectRegexp FlagRegexp) *Opt {
+		op := &Opt{
+			Protocol:  "udp",
+			Port:      "53",
+			Question:  "example.com.",
+			QueryType: "A",
+			Timeout:   5 * time.Second,
+		}
+		if expect != "" {
+			op.Expect = expect
+		}
+		if expectRegexp.Value != "" {
+			op.ExpectRegexp = expectRegexp
+		}
+		return op
+	}
+	opt := genOpt("127.0.0.1", FlagRegexp{})
+	_, err := opt.resolveOne("8.8.8.8")
+	assert.Error(t, err)
+
+	opt = genOpt("", FlagRegexp{
+		Value:  `\d+\.\d+\.\d+\.\d+`,
+		Regexp: regexp.MustCompile(`\d+\.\d+\.\d+\.\d+`),
+	})
+	_, err = opt.resolveOne("8.8.8.8")
+	assert.NoError(t, err)
+
+	opt = genOpt("", FlagRegexp{
+		Value:  `\d+\.\d+\.\d+\.A`,
+		Regexp: regexp.MustCompile(`\d+\.\d+\.\d+\.A`),
+	})
+	_, err = opt.resolveOne("8.8.8.8")
+	assert.Error(t, err)
+}
+
+func TestExpectAny(t *testing.T) {
+	assert.True(t, expectAny("hello world", []string{"hello world"}))
+	assert.True(t, expectAny("hello", []string{"hello world"}))
+	assert.True(t, expectAny("hello world", []string{"world", "hello world"}))
+	assert.True(t, expectAny("world", []string{"world", "hello world"}))
+	assert.False(t, expectAny("hello world", []string{"foo"}))
+	assert.False(t, expectAny("hello world", []string{}))
+	assert.False(t, expectAny("", []string{"hello"}))
+}
+
+func TestExpectMatchAny(t *testing.T) {
+	reg := FlagRegexp{
+		Value:  "hello",
+		Regexp: regexp.MustCompile("hello"),
+	}
+	assert.True(t, expectMatchAny(reg, []string{"hello world"}))
+	assert.True(t, expectMatchAny(reg, []string{"world", "hello world"}))
+	assert.False(t, expectMatchAny(reg, []string{"world"}))
+	assert.False(t, expectMatchAny(reg, []string{}))
+	assert.False(t, expectMatchAny(FlagRegexp{}, []string{"hello"}))
 }

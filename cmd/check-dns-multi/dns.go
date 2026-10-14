@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net"
+	"slices"
 	"strings"
 	"sync"
 
@@ -38,13 +39,20 @@ func (o *Opt) resolveOne(host string) (string, error) {
 			answer = append(answer, aa.AAAA.String())
 		}
 	}
-	if len(o.Expect) > 0 && !strings.Contains(strings.Join(answer, "|"), o.Expect) {
+
+	if len(o.Expect) > 0 && !expectAny(o.Expect, answer) {
 		return "", fmt.Errorf("[%s] not contain '%s' in '%s'",
 			address,
 			o.Expect,
-			strings.Join(answer, "|"),
-		)
+			strings.Join(answer, "\t"))
 	}
+	if o.ExpectRegexp.IsSet() && !expectMatchAny(o.ExpectRegexp, answer) {
+		return "", fmt.Errorf("[%s] not contain '%s' in '%s'",
+			address,
+			o.ExpectRegexp.Value,
+			strings.Join(answer, "\t"))
+	}
+
 	msg := make([]string, 0, len(r.Answer)+1)
 	msg = append(msg, fmt.Sprintf("[%s] HEADER-> %s", address,
 		strings.ReplaceAll(r.MsgHdr.String(), "\n", " ")))
@@ -53,6 +61,27 @@ func (o *Opt) resolveOne(host string) (string, error) {
 			strings.ReplaceAll(fmt.Sprintf("[%s] ANSWER-> %s", address, answer), "\n", " "))
 	}
 	return strings.Join(msg, "\n"), nil
+}
+
+func expectAny(expected string, answers []string) bool {
+	if len(expected) == 0 {
+		return false
+	}
+	return slices.ContainsFunc(answers, func(answer string) bool {
+		return strings.Contains(answer, expected)
+	})
+}
+
+func expectMatchAny(reg FlagRegexp, answers []string) bool {
+	if !reg.IsSet() {
+		return false
+	}
+	for _, answer := range answers {
+		if reg.Regexp.MatchString(answer) {
+			return true
+		}
+	}
+	return false
 }
 
 func (o *Opt) Run(_ []string) *checkers.Checker {
