@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.0.12](https://github.com/monitoring-forge/check-dns-multi/compare/v0.0.11...v0.0.12) - 2026-10-16
+
+- ci: bump Songmu/tagpr from 1.21.0 to 1.21.2 in the tagpr group by @dependabot[bot] in https://github.com/monitoring-forge/check-dns-multi/pull/54
+
 ## [v0.0.11](https://github.com/monitoring-forge/check-dns-multi/compare/v0.0.10...v0.0.11) - 2026-10-14
 
 - Sync files with `monitoring-forge/github-common` by @monitoring-forge-files-sync-action[bot] in https://github.com/monitoring-forge/check-dns-multi/pull/40
