@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.0.12](https://github.com/monitoring-forge/check-dns-multi/compare/v0.0.11...v0.0.12) - 2026-10-23
+
+- ci: bump Songmu/tagpr from 1.21.0 to 1.21.2 in the tagpr group by @dependabot[bot] in https://github.com/monitoring-forge/check-dns-multi/pull/54
+- go: bump the dependencies group with 2 updates by @dependabot[bot] in https://github.com/monitoring-forge/check-dns-multi/pull/55
+- ci: bump Songmu/tagpr from 1.21.2 to 1.21.3 in the tagpr group by @dependabot[bot] in https://github.com/monitoring-forge/check-dns-multi/pull/57
+- go: bump golang.org/x/net from 0.60.0 to 0.61.0 in the dependencies group by @dependabot[bot] in https://github.com/monitoring-forge/check-dns-multi/pull/58
+- ci: bump the dependencies group with 2 updates by @dependabot[bot] in https://github.com/monitoring-forge/check-dns-multi/pull/59
+
 ## [v0.0.11](https://github.com/monitoring-forge/check-dns-multi/compare/v0.0.10...v0.0.11) - 2026-10-14
 
 - Sync files with `monitoring-forge/github-common` by @monitoring-forge-files-sync-action[bot] in https://github.com/monitoring-forge/check-dns-multi/pull/40
