@@ -11,6 +11,6 @@ require (
 	github.com/mackerelio/checkers v0.2.1
 	github.com/monitoring-forge/flagrun v0.0.10
 	github.com/stretchr/testify v1.12.1
-	golang.org/x/net v0.60.0 // indirect
+	golang.org/x/net v0.61.0 // indirect
 	golang.org/x/sys v0.49.0 // indirect
 )
