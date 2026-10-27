@@ -9,6 +9,7 @@ import (
 
 	"github.com/mackerelio/checkers"
 	"github.com/miekg/dns"
+	"github.com/monitoring-forge/flagrun"
 )
 
 func (o *Opt) resolveOne(host string) (string, error) {
@@ -46,10 +47,10 @@ func (o *Opt) resolveOne(host string) (string, error) {
 			o.Expect,
 			strings.Join(answer, "\t"))
 	}
-	if o.ExpectRegexp.IsSet() && !expectMatchAny(o.ExpectRegexp, answer) {
+	if o.ExpectRegexp.Present() && !expectMatchAny(o.ExpectRegexp, answer) {
 		return "", fmt.Errorf("[%s] not contain '%s' in '%s'",
 			address,
-			o.ExpectRegexp.Value,
+			o.ExpectRegexp.String(),
 			strings.Join(answer, "\t"))
 	}
 
@@ -72,12 +73,12 @@ func expectAny(expected string, answers []string) bool {
 	})
 }
 
-func expectMatchAny(reg FlagRegexp, answers []string) bool {
-	if !reg.IsSet() {
+func expectMatchAny(reg flagrun.Re, answers []string) bool {
+	if !reg.Present() {
 		return false
 	}
 	for _, answer := range answers {
-		if reg.Regexp.MatchString(answer) {
+		if reg.Regexp().MatchString(answer) {
 			return true
 		}
 	}

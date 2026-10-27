@@ -1,11 +1,11 @@
 package main
 
 import (
-	"regexp"
 	"testing"
 	"time"
 
 	"github.com/mackerelio/checkers"
+	"github.com/monitoring-forge/flagrun"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -78,7 +78,7 @@ func TestResolveAll(t *testing.T) {
 }
 
 func TestResolveOnceExpect(t *testing.T) {
-	genOpt := func(expect string, expectRegexp FlagRegexp) *Opt {
+	genOpt := func(expect string, expectRegexp flagrun.Re) *Opt {
 		op := &Opt{
 			Protocol:  "udp",
 			Port:      "53",
@@ -89,26 +89,24 @@ func TestResolveOnceExpect(t *testing.T) {
 		if expect != "" {
 			op.Expect = expect
 		}
-		if expectRegexp.Value != "" {
+		if expectRegexp.Present() {
 			op.ExpectRegexp = expectRegexp
 		}
 		return op
 	}
-	opt := genOpt("127.0.0.1", FlagRegexp{})
+	opt := genOpt("127.0.0.1", flagrun.Re{})
 	_, err := opt.resolveOne("8.8.8.8")
 	assert.Error(t, err)
 
-	opt = genOpt("", FlagRegexp{
-		Value:  `\d+\.\d+\.\d+\.\d+`,
-		Regexp: regexp.MustCompile(`\d+\.\d+\.\d+\.\d+`),
-	})
+	opt = genOpt("", flagrun.Re{})
+	err = opt.ExpectRegexp.UnmarshalFlag(`\d+\.\d+\.\d+\.\d+`)
+	assert.NoError(t, err)
 	_, err = opt.resolveOne("8.8.8.8")
 	assert.NoError(t, err)
 
-	opt = genOpt("", FlagRegexp{
-		Value:  `\d+\.\d+\.\d+\.A`,
-		Regexp: regexp.MustCompile(`\d+\.\d+\.\d+\.A`),
-	})
+	opt = genOpt("", flagrun.Re{})
+	err = opt.ExpectRegexp.UnmarshalFlag(`\d+\.\d+\.\d+\.A`)
+	assert.NoError(t, err)
 	_, err = opt.resolveOne("8.8.8.8")
 	assert.Error(t, err)
 }
@@ -124,13 +122,12 @@ func TestExpectAny(t *testing.T) {
 }
 
 func TestExpectMatchAny(t *testing.T) {
-	reg := FlagRegexp{
-		Value:  "hello",
-		Regexp: regexp.MustCompile("hello"),
-	}
+	reg := flagrun.Re{}
+	err := reg.UnmarshalFlag("hello")
+	assert.NoError(t, err)
 	assert.True(t, expectMatchAny(reg, []string{"hello world"}))
 	assert.True(t, expectMatchAny(reg, []string{"world", "hello world"}))
 	assert.False(t, expectMatchAny(reg, []string{"world"}))
 	assert.False(t, expectMatchAny(reg, []string{}))
-	assert.False(t, expectMatchAny(FlagRegexp{}, []string{"hello"}))
+	assert.False(t, expectMatchAny(flagrun.Re{}, []string{"hello"}))
 }
